@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Média</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <img src="anchieta.jpg" class="imagem-topo" alt="Imagem Anchieta">
+
+    <h1>Verificador de Média Prova Paraná  - ANCHIETA</h1>
+
+    <label for="nota1">1° Semestre:</label>
+    <input type="number" id="nota1" step="0.1"><br>
+
+    <label for="nota2">2° Semestre:</label>
+    <input type="number" id="nota2" step="0.1"><br>
+
+    <button onclick="verificarMedia()">Verificar</button>
+
+    <div id="resultado"></div>
+    <img id="imagemResultado" class="resultado-img" src="" alt="">
+    
+    <div id="tabela-explicacao" class="explicacao-tabela"></div>
+  </div>
+
+  <script>
+    function verificarMedia() {
+      const nota1 = parseFloat(document.getElementById("nota1").value);
+      const nota2 = parseFloat(document.getElementById("nota2").value);
+
+      if (isNaN(nota1) || isNaN(nota2)) {
+        alert("Por favor, preencha as duas notas.");
+        return;
+      }
+
+      const media = (nota1 + nota2) / 2;
+      let mensagem = "";
+      let imagem = "";
+
+      if (media >= 7) {
+        mensagem = `Aprovado com média ${media.toFixed(1)}! 😄`;
+        imagem = "emoji-feliz.png";
+      } else if (media >= 5) {
+        mensagem = `Recuperação com média ${media.toFixed(1)}. 🤔`;
+        imagem = "emoji-pensando.png";
+      } else {
+        mensagem = `Reprovado com média ${media.toFixed(1)}. 😱`;
+        imagem = "emoji-surpreso.webp";
+      }
+
+      document.getElementById("resultado").innerText = mensagem;
+      document.getElementById("imagemResultado").src = imagem;
+      document.getElementById("imagemResultado").style.display = "block";
+
+      const tabelaHTML = `
+        <h3>Como foi feito o cálculo:</h3>
+        <table>
+          <tr>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Soma</th>
+            <th>Média</th>
+          </tr>
+          <tr>
+            <td>${nota1}</td>
+            <td>${nota2}</td>
+            <td>${(nota1 + nota2).toFixed(1)}</td>
+            <td>${media.toFixed(1)}</td>
+          </tr>
+        </table>
+      `;
+      document.getElementById("tabela-explicacao").innerHTML = tabelaHTML;
+    }
+  </script>
+</body>
+</html>
